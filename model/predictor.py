@@ -23,7 +23,7 @@ def preprocess(raw):
 def predict(raw):
     x = preprocess(raw)
     if _model is not None:
-        p = _model.predict(x, verbose=0)[0]
+        p = _model(x, training=False).numpy()[0]
         mock = False
     else:  # demo: deterministic per image, placeholder only
         seed = int(hashlib.sha256(raw).hexdigest(), 16) % (2**32)
