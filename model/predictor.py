@@ -17,7 +17,7 @@ MODEL_PATH = os.path.join(HERE, "heritage_model.tflite")
 
 _model = None
 if os.path.exists(MODEL_PATH):
-    _model = Interpreter(model_path=MODEL_PATH)
+    _model = Interpreter(model_path=MODEL_PATH, num_threads=1)
     _model.allocate_tensors()
     _in = _model.get_input_details()[0]["index"]
     _out = _model.get_output_details()[0]["index"]
