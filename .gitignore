@@ -3,5 +3,4 @@ __pycache__/
 *.pyc
 raw_data/
 dataset/
-model/heritage_model.keras
 .vscode/

@@ -1,9 +1,9 @@
 services:
   - type: web
-    name: heritagelens
+    name: vortex-heritagelens
     env: python
     buildCommand: pip install -r requirements.txt
-    startCommand: gunicorn backend.app:app
+    startCommand: gunicorn backend.app:app --workers 1 --timeout 120
     envVars:
       - key: PYTHON_VERSION
         value: 3.11.9
