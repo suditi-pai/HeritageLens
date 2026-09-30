@@ -1,0 +1,144 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>HeritageLens</title>
+<link rel="stylesheet" href="style.css">
+<link href="https://fonts.googleapis.com/css2?family=Yatra+One&family=Mukta:wght@400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+<header>
+  <a class="logo" href="#home">HeritageLens</a>
+  <nav>
+    <a href="#home">Home</a>
+    <a href="#recognize">Recognize Art</a>
+    <a href="#explore">Explore Heritage</a>
+    <a href="#dynasties">Dynasties &amp; Heritage</a>
+    <a href="#learn">Learn &amp; Discover</a>
+    <a href="#about">About</a>
+  </nav>
+</header>
+
+<main>
+      <section id="dynasties" class="page">
+    <h2>Dynasties &amp; Heritage</h2>
+    <div class="filters">
+      <input id="hq" type="search" placeholder="Search dynasty, temple, ruler, state, art form..." aria-label="Search heritage">
+      <select id="hera" aria-label="Era"><option value="">All eras</option></select>
+    </div>
+    <div id="dynastyTimeline" class="grid"></div>
+    <div id="dynastyDetail"></div>
+  </section>
+   <section id="home" class="page">
+        <div class="hero-wrap">
+      <div class="hero-carousel" id="heroCarousel"></div>
+      <div class="hero-overlay"></div>
+      <span class="motif motif-a">✦</span><span class="motif motif-b">✦</span><span class="motif motif-c">✦</span>
+      <div class="hero">
+        <h1>Discover India's Heritage Through AI</h1>
+        <p>Explore India's art, architecture, traditions, and stories through the power of Artificial Intelligence.</p>
+        <a class="btn" href="#recognize">Recognize Artwork</a> <a class="btn ghost" href="#dynasties">Explore Heritage</a>
+        <div class="scroll-cue">Scroll to explore India's heritage <span>&darr;</span></div>
+      </div>
+    </div>
+   </div>
+
+    <h2 class="fade-in">A Journey Through India's Heritage</h2>
+    <p class="lead fade-in">From ancient civilizations to timeless traditions, discover the stories that shaped India's cultural identity.</p>
+    <div class="grid journey-grid fade-in" id="journeyCards">
+      <a class="jcard" href="#explore" style="background-image:url('images/madhubani.jpg')"><div class="jb"><h3>Art</h3><p>Traditional paintings, sculptures and handicrafts.</p><span class="explore-link">Explore &rarr;</span></div></a>
+      <a class="jcard" href="#dynasties" style="background-image:url('images/heritage/brihadisvara.jpg')"><div class="jb"><h3>Architecture</h3><p>Temples, monuments and architectural styles.</p><span class="explore-link">Explore &rarr;</span></div></a>
+      <a class="jcard" href="#dynasties" style="background-image:url('images/heritage/gupta.jpg')"><div class="jb"><h3>Dynasties</h3><p>India's major historical dynasties, chronologically.</p><span class="explore-link">Explore &rarr;</span></div></a>
+      <a class="jcard" href="#learn" style="background-image:url('images/kalamkari.jpg')"><div class="jb"><h3>Traditions</h3><p>Festivals, rituals and cultural practices.</p><span class="explore-link">Explore &rarr;</span></div></a>
+    </div>
+
+    <h2 class="fade-in">How HeritageLens Works</h2>
+    <div class="how-steps fade-in">
+      <div class="how-step"><span class="how-num">01</span><h3>Upload</h3><p>Upload an image of traditional Indian artwork.</p></div>
+      <div class="how-step"><span class="how-num">02</span><h3>AI Recognizes</h3><p>Our Computer Vision system analyzes the artwork and identifies the likely art form.</p></div>
+      <div class="how-step"><span class="how-num">03</span><h3>Discover</h3><p>Learn its origin, history, cultural significance, techniques, and traditions.</p></div>
+    </div>
+
+    <h2 class="fade-in">Journey Through the Dynasties</h2>
+    <p class="lead fade-in">Hover over a dynasty to preview its story.</p>
+    <div class="dynasty-strip fade-in" id="dynastyStrip"></div>
+    <a class="btn ghost fade-in" href="#dynasties">Explore India's Historical Timeline &rarr;</a>
+
+    <h2 class="fade-in">Explore India's Cultural Treasures</h2>
+    <div class="grid treasure-grid fade-in" id="treasureCards"></div>
+
+    <h2 class="fade-in">Why preservation matters</h2>
+    <p class="lead fade-in">Many folk art forms are passed on by families and villages, often by women. When younger generations lose touch, techniques and stories disappear. Recognizing and explaining these arts makes them easier to learn and value.</p>
+  </section>
+
+  <section id="recognize" class="page">
+    <h2>Recognize Art</h2>
+    <div id="modebar"></div>
+    <label class="drop" id="drop" tabindex="0">
+      <input type="file" id="file" accept=".jpg,.jpeg,.png,image/jpeg,image/png" hidden>
+      <span id="droptxt">Drop an image here or press to choose (JPG, JPEG, PNG, up to 5 MB)</span>
+      <img id="preview" alt="Selected artwork preview" hidden>
+    </label>
+    <button class="btn" id="go" disabled>Analyze image</button>
+    <button class="btn ghost" id="reset">Reset</button>
+    <ul id="progress" class="progress" hidden>
+      <li>Uploading</li><li>Preprocessing</li><li>Running model</li><li>Fetching cultural notes</li>
+    </ul>
+    <p id="err" role="alert"></p>
+    <div id="result"></div>
+    <h3>Recent recognitions</h3>
+    <div id="history" class="grid small"></div>
+  </section>
+
+  <section id="explore" class="page">
+    <h2>Explore Heritage</h2>
+    <div class="filters">
+      <input id="q" type="search" placeholder="Search art forms" aria-label="Search">
+      <select id="fr" aria-label="Region"><option value="">All regions</option></select>
+      <select id="ft" aria-label="Technique"><option value="">All techniques</option></select>
+    </div>
+    <div class="grid" id="cards"></div>
+    <div id="detail"></div>
+  </section>
+
+    <section id="dynastyPage" class="page">
+    <div class="detail-hero" id="dynastyHero">
+      <div class="detail-hero-overlay"></div>
+      <div class="detail-hero-content">
+        <button class="back-link" id="dynBack">&larr; Back to Dynasties &amp; Heritage</button>
+        <h1 id="dynTitle"></h1>
+        <span class="period" id="dynPeriod"></span>
+      </div>
+    </div>
+    <div id="dynastyPageBody"></div>
+  </section>
+
+  <section id="templePage" class="page">
+    <div class="detail-hero" id="templeHero">
+      <div class="detail-hero-overlay"></div>
+      <div class="detail-hero-content">
+        <button class="back-link" id="templeBack">&larr; Back to Dynasties &amp; Heritage</button>
+        <h1 id="templeTitle"></h1>
+        <span class="period" id="templePeriod"></span>
+      </div>
+    </div>
+    <div id="templePageBody"></div>
+  </section>
+
+  <section id="learn" class="page">
+    <h2>Learn &amp; Discover</h2>
+    <div class="grid" id="learnGrid"></div>
+  </section>
+
+  <section id="about" class="page">
+    <h2>About</h2>
+    <p class="lead">HeritageLens pairs computer vision with a curated knowledge base to help students, tourists and researchers identify and understand traditional Indian art. It was built to make cultural heritage easier to discover, and to show how AI can support preservation and education.</p>
+    <p class="note">AI predictions can be wrong, especially for photos of unusual crops, mixed styles or modern reinterpretations. Treat results as educational guidance and confirm with an expert or a museum source.</p>
+  </section>
+</main>
+
+<footer>HeritageLens · educational project</footer>
+<script src="app.js"></script>
+</body>
+</html>
