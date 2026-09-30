@@ -1,18 +1,26 @@
 """Model layer. To use another model, change `predict` only.
-Real mode : model/heritage_model.keras exists (see train.py).
+Real mode : model/heritage_model.tflite exists (made by convert.py).
 Demo mode : otherwise. Output is NOT real classification and returns mock=True."""
 import json, hashlib, io, os
 import numpy as np
 from PIL import Image
 
+try:  # small runtime used on Render
+    from ai_edge_litert.interpreter import Interpreter
+except ImportError:  # falls back to full TensorFlow on your laptop
+    import tensorflow as tf
+    Interpreter = tf.lite.Interpreter
+
 HERE = os.path.dirname(__file__)
 LABELS = json.load(open(os.path.join(HERE, "labels.json")))
-MODEL_PATH = os.path.join(HERE, "heritage_model.keras")
+MODEL_PATH = os.path.join(HERE, "heritage_model.tflite")
 
 _model = None
 if os.path.exists(MODEL_PATH):
-    import tensorflow as tf
-    _model = tf.keras.models.load_model(MODEL_PATH)
+    _model = Interpreter(model_path=MODEL_PATH)
+    _model.allocate_tensors()
+    _in = _model.get_input_details()[0]["index"]
+    _out = _model.get_output_details()[0]["index"]
 
 
 def preprocess(raw):
@@ -23,7 +31,9 @@ def preprocess(raw):
 def predict(raw):
     x = preprocess(raw)
     if _model is not None:
-        p = _model(x, training=False).numpy()[0]
+        _model.set_tensor(_in, x)
+        _model.invoke()
+        p = _model.get_tensor(_out)[0]
         mock = False
     else:  # demo: deterministic per image, placeholder only
         seed = int(hashlib.sha256(raw).hexdigest(), 16) % (2**32)

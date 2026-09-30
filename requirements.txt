@@ -1,5 +1,5 @@
 flask
 pillow
 numpy
-tensorflow-cpu
+ai-edge-litert
 gunicorn
